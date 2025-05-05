@@ -1,0 +1,29 @@
+{
+  "name": "expresslanets",
+  "packageManager": "yarn@4.2.2",
+  
+  "scripts": {
+    "build": "yarn tsc",
+    "dev": "yarn nodemon"
+  },
+
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.4",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+
+  "nodemonConfig": {
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "exec": "yarn ts-node src/index.ts"
+  }
+}
