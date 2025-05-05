@@ -1,15 +1,14 @@
-import express, { Application } from "express";
+import middleWares from "./middlewares";
+import router from "./routes";
+import Server from "./server";
 
-const PORT = 3000;
+// Configuración del puerto
+const PORT: number = Number(process.env.PORT) || 3000;
 
-const app: Application = express();
-
-app.get('/', async (_req, res) => {
-    res.send({
-        message: `Server is running on port ${PORT}`,
-    });
+// Creación del servicio
+const server = new Server({
+  port: PORT,
+  middleWares: middleWares,
+  routes: [router],
 });
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+server.listen();
