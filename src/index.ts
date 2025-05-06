@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import middleWares from "./middlewares";
 import router from "./routes";
 import Server from "./server";
-//import datasource from "./datasource";
+import datasource from "./datasource";
 //import { User } from "./entities/user";
 
 // Configuración del puerto
@@ -15,18 +16,17 @@ const server = new Server({
 });
 server.listen();
 
-/*
 // Conexión a la base de datos
 datasource
   .initialize()
   .then(async () => {
-    const user = new User();
-    user.firstName = 'Nombre';
-    user.lastName = 'Apellido';
+    /* const user = new User();
+    user.firstName = "Nombre";
+    user.lastName = "Apellido";
 
-    const result = await datasource.getRepository(User).save(user);
-    console.log(result);
+    const result = await datasource.getRepository(User).save(user);*/
+    console.log("Database connected");
   })
   .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
-  });*/
+    console.error("Error during Data Source initialization:", err);
+  });

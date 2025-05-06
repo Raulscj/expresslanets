@@ -1,15 +1,13 @@
 import { Router } from "express";
-
-// Configuración del puerto
-const PORT: number = Number(process.env.PORT) || 3000;
+import { view, createUser, getUsers } from "../controllers/user.controllers";
 
 // Creación de la ruta
 const router = Router();
 
-router.get("/", async (_req, res) => {
-  res.send({
-    message: `Server is running on port ${PORT}`,
-  });
-});
+router.get("/", view);
+
+router.get("/users", getUsers);
+
+router.post("/users", createUser);
 
 export default router;
