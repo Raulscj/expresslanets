@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import datasource from "../datasource";
 import { User } from "../entities/user";
+import { responseAndLogger } from "../logger";
 
 // Configuración del puerto
 const PORT: number = Number(process.env.PORT) || 3000;
@@ -29,7 +30,7 @@ export const createUser = (req: Request, res: Response) => {
       .getRepository(User)
       .save(user)
       .then((user) => res.send(user))
-      .catch((error) => res.status(500).send({ message: error.message }));
+      .catch((error) => responseAndLogger(res, error.message, 500));
   } else {
     res.status(400).send({
       message: `It is necessary to indicate the parameters 'firstName' and 'lastName' for the creation of a user`,
@@ -45,7 +46,7 @@ export const getUsers = (req: Request, res: Response) => {
     .getRepository(User)
     .find({ skip, take })
     .then((users) => res.send(users))
-    .catch((error) => res.status(500).send({ message: error.message }));
+    .catch((error) => responseAndLogger(res, error.message, 500));
 };
 
 export const updateUser = (req: Request, res: Response) => {
@@ -64,9 +65,9 @@ export const updateUser = (req: Request, res: Response) => {
           .getRepository(User)
           .save(user)
           .then((user) => res.send(user))
-          .catch((error) => res.status(500).send({ message: error.message }));
+          .catch((error) => responseAndLogger(res, error.message, 500));
       })
-      .catch((error) => res.status(500).send({ message: error.message }));
+      .catch((error) => responseAndLogger(res, error.message, 500));
   } else {
     res
       .status(400)
@@ -80,7 +81,7 @@ export const deleteUser = (req: Request, res: Response) => {
       .getRepository(User)
       .delete({ id: Number(req.query.id) })
       .then((user) => res.send(user)) //TODO: no se valida si no consigue ningun Users
-      .catch((error) => res.status(500).send({ message: error.message }));
+      .catch((error) => responseAndLogger(res, error.message, 500));
   } else {
     res
       .status(400)

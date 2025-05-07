@@ -3,6 +3,7 @@ import middleWares from "./middlewares";
 import router from "./routes";
 import Server from "./server";
 import datasource from "./datasource";
+import logger from "./logger";
 //import { User } from "./entities/user";
 
 // Configuración del puerto
@@ -25,8 +26,8 @@ datasource
     user.lastName = "Apellido";
 
     const result = await datasource.getRepository(User).save(user);*/
-    console.log("Database connected");
+    logger.info("Database connected");
   })
   .catch((err) => {
-    console.error("Error during Data Source initialization:", err);
+    logger.error("Error during Data Source initialization:", err);
   });

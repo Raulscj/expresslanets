@@ -1,5 +1,6 @@
 import express, { Application, Router, RequestHandler } from "express";
 import * as http from "http";
+import logger from "./logger";
 
 interface ServerConfiguration {
   port?: number;
@@ -36,7 +37,7 @@ class Server {
   public listen() {
     this._server = http.createServer(this._app);
     this._server.listen(this._port, () => {
-      console.log(`App listening on port ${this._port}`);
+      logger.info(`App listening on port ${this._port}`);
     });
   }
 }
