@@ -47,3 +47,43 @@ export const getUsers = (req: Request, res: Response) => {
     .then((users) => res.send(users))
     .catch((error) => res.status(500).send({ message: error.message }));
 };
+
+export const updateUser = (req: Request, res: Response) => {
+  if (req.query.id) {
+    datasource
+      .getRepository(User)
+      .findOneByOrFail({ id: Number(req.query.id) })
+      .then((user) => {
+        if (req.body.firstName) {
+          user.firstName = String(req.body.firstName);
+        }
+        if (req.body.lastName) {
+          user.lastName = String(req.body.lastName);
+        }
+        datasource
+          .getRepository(User)
+          .save(user)
+          .then((user) => res.send(user))
+          .catch((error) => res.status(500).send({ message: error.message }));
+      })
+      .catch((error) => res.status(500).send({ message: error.message }));
+  } else {
+    res
+      .status(400)
+      .send({ message: `It is necessary to indicate the id of a user` });
+  }
+};
+
+export const deleteUser = (req: Request, res: Response) => {
+  if (req.query.id) {
+    datasource
+      .getRepository(User)
+      .delete({ id: Number(req.query.id) })
+      .then((user) => res.send(user)) //TODO: no se valida si no consigue ningun Users
+      .catch((error) => res.status(500).send({ message: error.message }));
+  } else {
+    res
+      .status(400)
+      .send({ message: `It is necessary to indicate the id of a user` });
+  }
+};
