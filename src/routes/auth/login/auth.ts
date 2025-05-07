@@ -1,32 +1,13 @@
-import { Router, Request, Response } from "express";
-import { sign } from "jsonwebtoken";
-import verifytoken from "../../../middlewares/verifytoken";
-import { responseAndLogger } from "../../../logger";
+import { Router } from "express";
 
-import { EXPIRES, SECRET } from "../../../../constants";
+import verifytoken from "../../../middlewares/verifytoken";
+import {info, login, register} from '../../../controllers/auth.controller'
 
 const router = Router();
 
-//const expiresIn = EXPIRES ? String(EXPIRES) : "15m";
-const expiresIn = typeof EXPIRES === "number" ? EXPIRES : "15m";
+router.post("/login", login);
 
-router.post("/login", (_req: Request, res: Response) => {
-  sign(
-    { user: "anonymous", admin: false },
-    SECRET,
-    { expiresIn },
-    (err, token) => {
-      if (err) {
-        return responseAndLogger(res,"It was not possible to generate the token" , 500)
-      }
+router.get("/info", verifytoken, info);
 
-      return res.send({ token });
-    },
-  );
-});
-
-router.get("/info", verifytoken, (req: Request, res: Response) => {
-  res.send(res.locals.payload);
-});
-
+router.post('/register', register);
 export default router;
