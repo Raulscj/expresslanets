@@ -6,18 +6,19 @@ import {
   updateUser,
   deleteUser,
 } from "../../controllers/user.controllers";
+import verifytoken from "../../middlewares/verifytoken";
 
 // Creación de la ruta
 const router = Router();
 
 //router.get("/", view);
 
-router.get("/", getUsers);
+router.get("/", verifytoken, getUsers);
 
-router.post("/", createUser);
+router.post("/", verifytoken, createUser);
 
-router.put("/", updateUser);
+router.put("/", verifytoken, updateUser);
 
-router.delete("/", deleteUser);
+router.delete("/", verifytoken, deleteUser);
 
 export default router;
