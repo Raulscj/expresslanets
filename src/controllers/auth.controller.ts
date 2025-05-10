@@ -54,6 +54,7 @@ export const login = (req: Request, res: Response) => {
     .catch(() => responseAndLogger(res, 'Invalid user', 400));
 }
 
+//Proof
 export const info = (req: Request, res: Response) => {
   res.send(res.locals.payload);
 };

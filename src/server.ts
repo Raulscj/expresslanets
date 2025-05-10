@@ -1,7 +1,7 @@
 import express, { Application, Router, RequestHandler } from "express";
 import * as http from "http";
-import logger from "./logger";
 
+import logger from "./logger";
 interface ServerConfiguration {
   port?: number;
   middleWares?: RequestHandler[];

@@ -5,7 +5,7 @@ import {
   getUsers,
   updateUser,
   deleteUser,
-} from "../../controllers/user.controllers";
+} from "../../controllers/user.controller";
 import verifytoken from "../../middlewares/verifytoken";
 
 // Creación de la ruta
